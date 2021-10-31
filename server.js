@@ -1,5 +1,5 @@
 const path = require('path');
-// const http = require('http');
+const http = require('http');
 const https = require('https');
 const fs = require('fs');
 
@@ -15,6 +15,7 @@ const options = {
 
 
 const server = https.createServer(options, app)
+const server2 = http.createServer(app)
 
 const io = socketio(server);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
@@ -115,3 +116,4 @@ io.on('connection', socket => {
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => console.log(`[+] Server running on port ${PORT} 😎`));
+server2.listen(process.env.PORT || 3001, () => console.log(`[+] Server running on port 30001 😎`));
