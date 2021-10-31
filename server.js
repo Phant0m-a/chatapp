@@ -1,14 +1,22 @@
 const path = require('path');
-const http = require('http');
+// const http = require('http');
+const https = require('https');
+const fs = require('fs');
+
 const express = require('express');
 const socketio = require('socket.io')
 const bodyParser = require('body-parser')
 
 const app = express();
-const server = https.createServer(app);
+const options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt')
+};
 
-// const io = socketio(server);
-const io = socketio(app);
+
+const server = https.createServer(options, app)
+
+const io = socketio(server);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.set('view engine', 'ejs')
 //😎
