@@ -5,9 +5,10 @@ const socketio = require('socket.io')
 const bodyParser = require('body-parser')
 
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(app);
 
-const io = socketio(server);
+// const io = socketio(server);
+const io = socketio(app);
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.set('view engine', 'ejs')
 //😎
