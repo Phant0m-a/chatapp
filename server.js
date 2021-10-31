@@ -2,12 +2,16 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io')
+const bodyParser = require('body-parser')
 
 const app = express();
 const server = http.createServer(app);
 
 const io = socketio(server);
-
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+app.set('view engine', 'ejs')
+//😎
+app.set('views', __dirname + '/views')
 // public static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -18,6 +22,22 @@ const chatBot = 'chatBot'
 
 // on used for Lisening for requst io.on('message')
 //emit used for sending request   io.emit('msg')
+
+// get
+app.get('/', (req, res) => {
+    res.render('index');
+})
+
+// post
+// app.post('/', (req, res) => {
+
+
+//     res.render('chat', {
+//         room: req.body.room,
+//         username : req.body.username,
+//     });
+// })
+
 
 
 // Run when user connect
@@ -85,4 +105,4 @@ io.on('connection', socket => {
 
 const PORT = 3000 || process.env.PORT;
 
-server.listen(PORT, () => console.log(`[+] Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`[+] Server running on port ${PORT} 😎`));
