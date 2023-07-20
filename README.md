@@ -1,2 +1,2 @@
 # meetUP
-A simple chat app for chatting for guys with different gens
+chatting app with socket io - test app
